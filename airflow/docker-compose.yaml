@@ -1,0 +1,16 @@
+services:
+  airflow:
+    image: apache/airflow:2.10.4
+    command: standalone
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../.env
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - PYTHONPATH=/opt/airflow/project
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./output:/opt/airflow/output
+      - ../engine:/opt/airflow/project/engine
+      - ../data:/opt/airflow/data
