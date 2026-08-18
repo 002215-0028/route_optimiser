@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "trip": {
+    "start": "2026-09-10",
+    "end": "2026-09-14"
+  },
+  "start_point": {
+    "name": "Saint-Germain-des-Prés, Paris",
+    "lat": 48.8537981,
+    "lng": 2.3333285,
+    "place_id": "ChIJyxfoIthx5kcRmwYD0yuy0Xg"
+  },
+  "summary": {
+    "num_days": 5,
+    "total_stops": 8,
+    "total_walk_min": 203,
+    "warnings": []
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-09-10",
+      "weekday": "Thursday",
+      "stops": [
+        {
+          "name": "Musée d'Orsay, Paris",
+          "priority": "must",
+          "place_id": "ChIJG5Qwtitu5kcR2CNEsYy9cdA",
+          "arrival": "09:16",
+          "visit_start": "09:30",
+          "visit_end": "12:00",
+          "warnings": []
+        },
+        {
+          "name": "Palais Royal, Paris",
+          "priority": "want",
+          "place_id": "ChIJR3122B9u5kcR9RZ_OWxSy80",
+          "arrival": "12:18",
+          "visit_start": "12:18",
+          "visit_end": "13:18",
+          "warnings": []
+        }
+      ],
+      "legs": [
+        {
+          "from": "Saint-Germain-des-Prés, Paris",
+          "to": "Musée d'Orsay, Paris",
+          "walk_min": 16
+        },
+        {
+          "from": "Musée d'Orsay, Paris",
+          "to": "Palais Royal, Paris",
+          "walk_min": 18
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-09-11",
+      "weekday": "Friday",
+      "stops": [
+        {
+          "name": "Marché aux Puces de Saint-Ouen",
+          "priority": "optional",
+          "place_id": "ChIJ47PTPvFu5kcRN4pDd6JWhEo",
+          "arrival": "10:30",
+          "visit_start": "10:30",
+          "visit_end": "13:00",
+          "warnings": []
+        }
+      ],
+      "legs": [
+        {
+          "from": "Saint-Germain-des-Prés, Paris",
+          "to": "Marché aux Puces de Saint-Ouen",
+          "walk_min": 90
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-09-12",
+      "weekday": "Saturday",
+      "stops": [
+        {
+          "name": "Jardin du Luxembourg, Paris",
+          "priority": "want",
+          "place_id": "ChIJe2jeNttx5kcRi_mJsGHdkQc",
+          "arrival": "09:10",
+          "visit_start": "09:10",
+          "visit_end": "10:40",
+          "warnings": []
+        },
+        {
+          "name": "Panthéon, Paris",
+          "priority": "must",
+          "place_id": "ChIJc8mX0udx5kcRWKcjTwDr5QA",
+          "arrival": "10:48",
+          "visit_start": "10:48",
+          "visit_end": "12:18",
+          "warnings": []
+        }
+      ],
+      "legs": [
+        {
+          "from": "Saint-Germain-des-Prés, Paris",
+          "to": "Jardin du Luxembourg, Paris",
+          "walk_min": 10
+        },
+        {
+          "from": "Jardin du Luxembourg, Paris",
+          "to": "Panthéon, Paris",
+          "walk_min": 7
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-09-13",
+      "weekday": "Sunday",
+      "stops": [
+        {
+          "name": "Galeries Lafayette Haussmann",
+          "priority": "optional",
+          "place_id": "ChIJixChAzdu5kcRkxWrzUU4d-Y",
+          "arrival": "09:37",
+          "visit_start": "10:00",
+          "visit_end": "12:00",
+          "warnings": []
+        }
+      ],
+      "legs": [
+        {
+          "from": "Saint-Germain-des-Prés, Paris",
+          "to": "Galeries Lafayette Haussmann",
+          "walk_min": 37
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-09-14",
+      "weekday": "Monday",
+      "stops": [
+        {
+          "name": "Louvre Museum, Paris",
+          "priority": "must",
+          "place_id": "ChIJD3uTd9hx5kcR1IQvGfr8dbk",
+          "arrival": "09:12",
+          "visit_start": "09:12",
+          "visit_end": "12:12",
+          "warnings": []
+        },
+        {
+          "name": "Sainte-Chapelle, Paris",
+          "priority": "want",
+          "place_id": "ChIJR3122B9u5kcRaCck3PlB9DM",
+          "arrival": "12:25",
+          "visit_start": "12:25",
+          "visit_end": "13:25",
+          "warnings": []
+        }
+      ],
+      "legs": [
+        {
+          "from": "Saint-Germain-des-Prés, Paris",
+          "to": "Louvre Museum, Paris",
+          "walk_min": 12
+        },
+        {
+          "from": "Louvre Museum, Paris",
+          "to": "Sainte-Chapelle, Paris",
+          "walk_min": 13
+        }
+      ]
+    }
+  ]
+}

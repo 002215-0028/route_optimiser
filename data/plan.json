@@ -1,0 +1,123 @@
+{
+  "trip": {
+    "start": "2026-09-10",
+    "end": "2026-09-14"
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-09-10",
+      "weekday": "Thursday",
+      "stops": [
+        {
+          "name": "Musée d'Orsay, Paris",
+          "priority": "must",
+          "place_id": "ChIJG5Qwtitu5kcR2CNEsYy9cdA",
+          "walk_min": 16,
+          "arrival": "09:16",
+          "start": "09:30",
+          "leave": "12:00",
+          "warnings": []
+        },
+        {
+          "name": "Palais Royal, Paris",
+          "priority": "want",
+          "place_id": "ChIJR3122B9u5kcR9RZ_OWxSy80",
+          "walk_min": 18,
+          "arrival": "12:18",
+          "start": "12:18",
+          "leave": "13:18",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-09-11",
+      "weekday": "Friday",
+      "stops": [
+        {
+          "name": "Marché aux Puces de Saint-Ouen",
+          "priority": "optional",
+          "place_id": "ChIJ47PTPvFu5kcRN4pDd6JWhEo",
+          "walk_min": 90,
+          "arrival": "10:30",
+          "start": "10:30",
+          "leave": "13:00",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-09-12",
+      "weekday": "Saturday",
+      "stops": [
+        {
+          "name": "Jardin du Luxembourg, Paris",
+          "priority": "want",
+          "place_id": "ChIJe2jeNttx5kcRi_mJsGHdkQc",
+          "walk_min": 10,
+          "arrival": "09:10",
+          "start": "09:10",
+          "leave": "10:40",
+          "warnings": []
+        },
+        {
+          "name": "Panthéon, Paris",
+          "priority": "must",
+          "place_id": "ChIJc8mX0udx5kcRWKcjTwDr5QA",
+          "walk_min": 7,
+          "arrival": "10:48",
+          "start": "10:48",
+          "leave": "12:18",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-09-13",
+      "weekday": "Sunday",
+      "stops": [
+        {
+          "name": "Galeries Lafayette Haussmann",
+          "priority": "optional",
+          "place_id": "ChIJixChAzdu5kcRkxWrzUU4d-Y",
+          "walk_min": 37,
+          "arrival": "09:37",
+          "start": "10:00",
+          "leave": "12:00",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-09-14",
+      "weekday": "Monday",
+      "stops": [
+        {
+          "name": "Louvre Museum, Paris",
+          "priority": "must",
+          "place_id": "ChIJD3uTd9hx5kcR1IQvGfr8dbk",
+          "walk_min": 12,
+          "arrival": "09:12",
+          "start": "09:12",
+          "leave": "12:12",
+          "warnings": []
+        },
+        {
+          "name": "Sainte-Chapelle, Paris",
+          "priority": "want",
+          "place_id": "ChIJR3122B9u5kcRaCck3PlB9DM",
+          "walk_min": 13,
+          "arrival": "12:25",
+          "start": "12:25",
+          "leave": "13:25",
+          "warnings": []
+        }
+      ]
+    }
+  ]
+}

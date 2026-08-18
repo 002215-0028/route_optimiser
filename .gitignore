@@ -1,0 +1,5 @@
+venv/
+.env
+.cache/
+data/geocoded.json
+__pycache__/

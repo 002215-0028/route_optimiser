@@ -1,0 +1,27 @@
+{
+    "dates": { "start": "2026-09-10", "end": "2026-09-14" },
+    "region": "fr",
+    "start_point": { "name": "Saint-Germain-des-Prés, Paris" },
+    "places": [
+    { "name": "Louvre Museum, Paris", "priority": "must",
+      "hours": { "open": "09:00", "close": "18:00", "closed_days": ["Tuesday"] },
+      "duration_min": 180 },
+    { "name": "Musée d'Orsay, Paris", "priority": "must",
+      "hours": { "open": "09:30", "close": "18:00", "closed_days": ["Monday"] },
+      "duration_min": 150 },
+    { "name": "Sainte-Chapelle, Paris", "priority": "want",
+      "hours": { "open": "09:00", "close": "19:00" }, "duration_min": 60 },
+    { "name": "Palais Royal, Paris", "priority": "want",
+      "hours": { "open": "08:30", "close": "20:30" }, "duration_min": 60 },
+    { "name": "Marché aux Puces de Saint-Ouen", "priority": "optional",
+      "hours": { "open": "10:00", "close": "17:30", "closed_days": ["Tuesday", "Wednesday", "Thursday"] },
+      "duration_min": 150,
+      "appointment": { "date": "2026-09-12", "time": "11:00" } },
+    { "name": "Panthéon, Paris", "priority": "must",
+      "hours": { "open": "10:00", "close": "18:30" }, "duration_min": 90 },
+    { "name": "Jardin du Luxembourg, Paris", "priority": "want",
+      "hours": { "open": "07:30", "close": "21:00" }, "duration_min": 90 },
+    { "name": "Galeries Lafayette Haussmann", "priority": "optional",
+      "hours": { "open": "10:00", "close": "20:30" }, "duration_min": 120 }
+    ]
+  }
