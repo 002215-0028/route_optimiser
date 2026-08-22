@@ -22,7 +22,7 @@ def optimise(trip: TripIn) -> dict:
     if not api_key:
         raise HTTPException(status_code=500, detail="Server missing API key")
     try:
-        return plan_trip(trip.model_dump(), api_key)
+        return plan_trip(trip.model_dump(exclude_none=True), api_key)
     except RuntimeError as e:
         # engine's "couldn't geocode / matrix failed" errors -> client's fault, mostly
         raise HTTPException(status_code=422, detail=str(e))
