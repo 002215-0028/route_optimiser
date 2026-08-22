@@ -23,6 +23,8 @@ def assemble_itinerary(trip_dates: dict, start_point: dict, days: List[dict]) ->
             "name": s["name"],
             "priority": s["priority"],
             "place_id": s["place_id"],
+            "lat": s["lat"],
+            "lng": s["lng"],
             "arrival": s["arrival"],
             "visit_start": s["start"],
             "visit_end": s["leave"],
