@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from "@react-google-maps/api";
+import { MAPS_LOADER_OPTIONS } from "./mapsConfig";
 
 const DAY_COLOURS = ["#C96595", "#4C7CBF", "#3E8E5A", "#C98A3D", "#7A5CC1"];
 
@@ -18,9 +19,7 @@ export interface Itinerary {
 
 export default function ItineraryView({ itinerary }: { itinerary: Itinerary }) {
   const [activeDay, setActiveDay] = useState(0);
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_BROWSER_KEY ?? "",
-  });
+  const { isLoaded } = useJsApiLoader(MAPS_LOADER_OPTIONS);
 
   const day = itinerary.days[activeDay];
   const start = itinerary.start_point;

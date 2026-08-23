@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import ItineraryView, { type Itinerary } from "./ItineraryView";
-
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import { MAPS_LOADER_OPTIONS } from "./mapsConfig";
+import { useRef } from "react";
 
 type Priority = "must" | "want" | "optional";
 
@@ -22,6 +24,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
+
+  const { isLoaded: mapsReady } = useJsApiLoader(MAPS_LOADER_OPTIONS);
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
   // ---- actions: functions that change state; React redraws ----
   function addPlace() {
