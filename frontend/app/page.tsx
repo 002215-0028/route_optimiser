@@ -27,6 +27,7 @@ export default function Home() {
 
   const { isLoaded: mapsReady } = useJsApiLoader(MAPS_LOADER_OPTIONS);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const startAutocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
   // ---- actions: functions that change state; React redraws ----
   function addPlace() {
@@ -54,6 +55,16 @@ export default function Home() {
     recordSelection({ name: label, placeId: p.place_id });
     setPlaces((prev) => [...prev, { name: label, priority: newPriority }]);
     setNewName("");
+  }
+  function onStartChosen() {
+    const p = startAutocompleteRef.current?.getPlace();
+    if (!p) return;
+    const label = p.name && p.formatted_address
+      ? `${p.name}, ${p.formatted_address}`
+      : p.name ?? "";
+    if (!label) return;
+    recordSelection({ name: label, placeId: p.place_id });
+    setStartPoint(label);
   }
 
   async function planTrip() {
@@ -96,8 +107,18 @@ export default function Home() {
         <h2>Trip</h2>
         <label>
           Start / accommodation:{" "}
-          <input value={startPoint} onChange={(e) => setStartPoint(e.target.value)}
-                 placeholder="Saint-Germain-des-Prés, Paris" size={32} />
+          {mapsReady ? (
+            <Autocomplete
+              onLoad={(ac) => { startAutocompleteRef.current = ac; }}
+              onPlaceChanged={onStartChosen}
+            >
+              <input value={startPoint} onChange={(e) => setStartPoint(e.target.value)}
+                placeholder="Start typing your hotel / start point…" size={32} />
+            </Autocomplete>
+          ) : (
+            <input value={startPoint} onChange={(e) => setStartPoint(e.target.value)}
+              placeholder="Start typing your hotel / start point…" size={32} />
+          )}
         </label>
         <div style={{ marginTop: 8 }}>
           <label>From: <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} /></label>{" "}
