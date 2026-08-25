@@ -24,6 +24,23 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
+  const ALL_MODES = [
+    { id: "walking", label: "🚶 Walk" },
+    { id: "transit", label: "🚇 Transit" },
+    { id: "driving", label: "🚗 Drive" },
+    { id: "bicycling", label: "🚴 Cycle" },
+  ] as const;
+  type Mode = (typeof ALL_MODES)[number]["id"];
+  
+  const [modes, setModes] = useState<Mode[]>(["walking"]);
+  
+  function toggleMode(m: Mode) {
+    setModes((prev) =>
+      prev.includes(m)
+        ? prev.length > 1 ? prev.filter((x) => x !== m) : prev  // never allow zero
+        : [...prev, m]
+    );
+  }
 
   const { isLoaded: mapsReady } = useJsApiLoader(MAPS_LOADER_OPTIONS);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
@@ -80,6 +97,7 @@ export default function Home() {
           region: "fr",
           start_point: { name: startPoint },
           places,
+          modes, 
         }),
       });
       const data = await res.json();
@@ -123,6 +141,20 @@ export default function Home() {
         <div style={{ marginTop: 8 }}>
           <label>From: <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} /></label>{" "}
           <label>To: <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} /></label>
+        </div>
+        <div style={{ marginTop: 8 }}>
+          <span>Travel by: </span>
+          {ALL_MODES.map((m) => (
+            <button key={m.id} onClick={() => toggleMode(m.id)}
+              style={{
+                marginRight: 6, padding: "4px 10px", borderRadius: 14, cursor: "pointer",
+                border: "1px solid #888",
+                background: modes.includes(m.id) ? "#333" : "white",
+                color: modes.includes(m.id) ? "white" : "#333",
+              }}>
+              {m.label}
+            </button>
+          ))}
         </div>
       </section>
 

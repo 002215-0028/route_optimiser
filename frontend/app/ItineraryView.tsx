@@ -15,7 +15,9 @@ export interface Itinerary {
   start_point: { name: string; lat: number; lng: number };
   summary: { num_days: number; total_stops: number; total_walk_min: number };
   days: Day[];
+  legs: Leg[]
 }
+interface Leg { from: string; to: string; walk_min: number; mode: string }
 
 export default function ItineraryView({ itinerary }: { itinerary: Itinerary }) {
   const [activeDay, setActiveDay] = useState(0);
@@ -28,7 +30,9 @@ export default function ItineraryView({ itinerary }: { itinerary: Itinerary }) {
     ...day.stops.map((s) => ({ lat: s.lat, lng: s.lng })),
   ];
   const colour = DAY_COLOURS[activeDay % DAY_COLOURS.length];
-
+  const MODE_ICONS: Record<string, string> = {
+    walking: "🚶", transit: "🚇", driving: "🚗", bicycling: "🚴",
+  };
   return (
     <div style={{ marginTop: 24 }}>
       <p>
@@ -55,6 +59,19 @@ export default function ItineraryView({ itinerary }: { itinerary: Itinerary }) {
         {day.stops.length === 0 && <p>(free day)</p>}
         {day.stops.map((s) => (
           <li key={s.name}>
+            <b>{s.arrival}</b> — {s.name} ({s.visit_start}–{s.visit_end})
+            {s.warnings.map((w) => (
+              <span key={w} style={{ color: "crimson" }}> ⚠ {w}</span>
+            ))}
+          </li>
+        ))}
+        {day.stops.map((s, i) => (
+          <li key={s.name}>
+            {day.legs[i] && (
+              <span style={{ color: "#666" }}>
+                {MODE_ICONS[day.legs[i].mode] ?? "🚶"} {day.legs[i].walk_min} min →{" "}
+              </span>
+            )}
             <b>{s.arrival}</b> — {s.name} ({s.visit_start}–{s.visit_end})
             {s.warnings.map((w) => (
               <span key={w} style={{ color: "crimson" }}> ⚠ {w}</span>
