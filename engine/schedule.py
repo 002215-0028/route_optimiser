@@ -22,7 +22,10 @@ def greedy_order(day_places: List[dict], matrix: List[List[Optional[int]]],
     return ordered
 
 
-def schedule_day(day_date, ordered, matrix, index_of, start_idx, winners=None)::
+def schedule_day(day_date: date, ordered: List[dict],
+                 matrix: List[List[Optional[int]]],
+                 index_of: Dict[str, int], start_idx: int,
+                 winners: Optional[List[List[Optional[str]]]] = None) -> List[dict]:
     """Walk the ordered stops with a clock; wait for openings, flag problems."""
     clock = datetime.combine(day_date, datetime.strptime(DAY_START, "%H:%M").time())
     weekday = day_date.strftime("%A")
