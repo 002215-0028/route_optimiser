@@ -10,12 +10,11 @@ interface Stop {
   name: string; priority: string; lat: number; lng: number;
   arrival: string; visit_start: string; visit_end: string; warnings: string[];
 }
-interface Day { day: number; date: string; weekday: string; stops: Stop[] }
+interface Day { day: number; date: string; weekday: string; stops: Stop[]; legs: Leg[] }
 export interface Itinerary {
   start_point: { name: string; lat: number; lng: number };
   summary: { num_days: number; total_stops: number; total_walk_min: number };
   days: Day[];
-  legs: Leg[]
 }
 interface Leg { from: string; to: string; walk_min: number; mode: string }
 
