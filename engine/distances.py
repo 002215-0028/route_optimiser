@@ -4,7 +4,42 @@ from typing import List, Optional
 from engine.cache import load_cache, save_cache
 
 BASE_URL = "https://maps.googleapis.com/maps/api/distancematrix/json"
+from typing import Dict, List, Optional, Tuple
 
+WALK_WINS_UNDER_SEC = 12 * 60  # short-hop rule: walking beats all under 12 min
+
+
+def best_of_matrix(
+    place_ids: List[str], api_key: str, modes: List[str]
+) -> Tuple[List[List[Optional[int]]], List[List[Optional[str]]]]:
+    """Fetch one matrix per allowed mode; keep the fastest per cell.
+
+    Returns (times, winners): times[i][j] seconds, winners[i][j] mode name.
+    Short-hop rule: if walking is allowed and under WALK_WINS_UNDER_SEC,
+    walking wins regardless (driving numbers ignore parking reality).
+    """
+    per_mode: Dict[str, List[List[Optional[int]]]] = {
+        m: travel_time_matrix(place_ids, api_key, mode=m) for m in modes
+    }
+
+    n = len(place_ids)
+    times: List[List[Optional[int]]] = [[None] * n for _ in range(n)]
+    winners: List[List[Optional[str]]] = [[None] * n for _ in range(n)]
+
+    for i in range(n):
+        for j in range(n):
+            walk = per_mode.get("walking", [[None] * n] * n)[i][j]
+            if walk is not None and walk <= WALK_WINS_UNDER_SEC:
+                times[i][j], winners[i][j] = walk, "walking"
+                continue
+            best_t, best_m = None, None
+            for m in modes:
+                t = per_mode[m][i][j]
+                if t is not None and (best_t is None or t < best_t):
+                    best_t, best_m = t, m
+            times[i][j], winners[i][j] = best_t, best_m
+
+    return times, winners
 
 def travel_time_matrix(
     place_ids: List[str], api_key: str, mode: str = "walking"

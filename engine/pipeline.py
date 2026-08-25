@@ -3,12 +3,13 @@ from typing import Optional
 
 from engine.geocode import geocode
 from engine.distances import travel_time_matrix
+from engine.distances import best_of_matrix
 from engine.cluster import kmeans
 from engine.schedule import greedy_order, schedule_day
 from engine.assemble import assemble_itinerary
 
 
-def plan_trip(trip: dict, api_key: str, mode: str = "walking") -> dict:
+def plan_trip(trip: dict, api_key: str) -> dict:
     """Run the full pipeline: geocode -> distances -> cluster -> order -> schedule.
 
     `trip` matches the trip.json shape. Returns the versioned itinerary dict.
@@ -26,7 +27,8 @@ def plan_trip(trip: dict, api_key: str, mode: str = "walking") -> dict:
 
     # 2. travel-time matrix
     all_ids = [start["place_id"]] + [p["place_id"] for p in places]
-    matrix = travel_time_matrix(all_ids, api_key, mode=mode)
+    modes = trip.get("modes") or ["walking"]
+    matrix, winners = best_of_matrix(all_ids, api_key, modes)
     index_of = {pid: i for i, pid in enumerate(all_ids)}
 
     # 3. cluster into days
@@ -43,7 +45,7 @@ def plan_trip(trip: dict, api_key: str, mode: str = "walking") -> dict:
         day_date = d0 + timedelta(days=day_num - 1)
         day_places = [p for p in places if p["day"] == day_num]
         ordered = greedy_order(day_places, matrix, index_of, 0)
-        stops = schedule_day(day_date, ordered, matrix, index_of, 0)
+        stops = schedule_day(day_date, ordered, matrix, index_of, 0, winners)
         plan.append({
             "day": day_num,
             "date": day_date.isoformat(),

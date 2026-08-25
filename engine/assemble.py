@@ -16,6 +16,7 @@ def assemble_itinerary(trip_dates: dict, start_point: dict, days: List[dict]) ->
                 "from": prev_name,
                 "to": s["name"],
                 "walk_min": s["walk_min"],
+                "mode": s.get("travel_mode", "walking"),
             })
             prev_name = s["name"]
 

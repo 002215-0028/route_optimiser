@@ -31,8 +31,18 @@ class StartPoint(BaseModel):
     name: str = Field(min_length=1)
 
 
+from pydantic import BaseModel, Field, field_validator
+
 class TripIn(BaseModel):
     dates: Dates
     region: Optional[str] = None
     start_point: StartPoint
     places: List[PlaceIn] = Field(min_length=1, max_length=25)
+    modes: List[Literal["walking", "transit", "driving", "bicycling"]] = ["walking"]
+
+    @field_validator("modes")
+    @classmethod
+    def at_least_one_mode(cls, v):
+        if not v:
+            raise ValueError("at least one travel mode required")
+        return list(dict.fromkeys(v))  # dedupe, keep order

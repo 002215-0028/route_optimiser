@@ -22,9 +22,7 @@ def greedy_order(day_places: List[dict], matrix: List[List[Optional[int]]],
     return ordered
 
 
-def schedule_day(day_date: date, ordered: List[dict],
-                 matrix: List[List[Optional[int]]],
-                 index_of: Dict[str, int], start_idx: int) -> List[dict]:
+def schedule_day(day_date, ordered, matrix, index_of, start_idx, winners=None)::
     """Walk the ordered stops with a clock; wait for openings, flag problems."""
     clock = datetime.combine(day_date, datetime.strptime(DAY_START, "%H:%M").time())
     weekday = day_date.strftime("%A")
@@ -34,6 +32,7 @@ def schedule_day(day_date: date, ordered: List[dict],
     for p in ordered:
         pid = index_of[p["place_id"]]
         walk_sec = matrix[current][pid] or 0
+        leg_mode = (winners[current][pid] if winners else None) or "walking"
         clock += timedelta(seconds=walk_sec)
         arrival = clock
         warnings = []
@@ -75,6 +74,7 @@ def schedule_day(day_date: date, ordered: List[dict],
             "lat": p["lat"],
             "lng": p["lng"],
             "walk_min": walk_sec // 60,
+            "travel_mode": leg_mode,
             "arrival": arrival.strftime("%H:%M"),
             "start": clock.strftime("%H:%M"),
             "leave": leave.strftime("%H:%M"),
