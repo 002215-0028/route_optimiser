@@ -39,6 +39,23 @@ export default function Home() {
     setPlaces(places.filter((_, i) => i !== index));
   }
 
+  function recordSelection(place: { name: string; placeId?: string }) {
+    // v2: persist selections and use them to rank/pre-suggest. Deliberate no-op for now.
+    console.log("selection:", place);
+  }
+  
+  function onPlaceChosen() {
+    const p = autocompleteRef.current?.getPlace();
+    if (!p) return;
+    const label = p.name && p.formatted_address
+      ? `${p.name}, ${p.formatted_address}`
+      : p.name ?? "";
+    if (!label) return;
+    recordSelection({ name: label, placeId: p.place_id });
+    setPlaces((prev) => [...prev, { name: label, priority: newPriority }]);
+    setNewName("");
+  }
+
   async function planTrip() {
     setLoading(true);
     setError(null);
@@ -90,9 +107,19 @@ export default function Home() {
 
       <section style={{ marginTop: 24 }}>
         <h2>Places</h2>
-        <input value={newName} onChange={(e) => setNewName(e.target.value)}
-               onKeyDown={(e) => e.key === "Enter" && addPlace()}
-               placeholder="Louvre Museum, Paris" size={28} />{" "}
+        {mapsReady ? (
+          <Autocomplete
+            onLoad={(ac) => { autocompleteRef.current = ac; }}
+            onPlaceChanged={onPlaceChosen}
+          >
+            <input value={newName} onChange={(e) => setNewName(e.target.value)}
+                  placeholder="Start typing a place…" size={28} />
+          </Autocomplete>
+        ) : (
+          <input value={newName} onChange={(e) => setNewName(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addPlace()}
+            placeholder="Louvre Museum, Paris" size={28} />
+        )}
         <select value={newPriority} onChange={(e) => setNewPriority(e.target.value as Priority)}>
           <option value="must">must</option>
           <option value="want">want</option>
