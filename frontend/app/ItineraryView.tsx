@@ -36,7 +36,7 @@ export default function ItineraryView({ itinerary }: { itinerary: Itinerary }) {
     <div style={{ marginTop: 24 }}>
       <p>
         <b>{itinerary.summary.num_days} days · {itinerary.summary.total_stops} stops ·{" "}
-        {itinerary.summary.total_walk_min} min walking</b>
+        {itinerary.summary.total_walk_min} min travel</b>
       </p>
 
       <div style={{ display: "flex", gap: 8, margin: "12px 0" }}>
