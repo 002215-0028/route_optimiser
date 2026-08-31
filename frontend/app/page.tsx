@@ -25,10 +25,10 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
   const ALL_MODES = [
-    { id: "walking", label: "🚶 Walk" },
-    { id: "transit", label: "🚇 Transit" },
-    { id: "driving", label: "🚗 Drive" },
-    { id: "bicycling", label: "🚴 Cycle" },
+    { id: "walking", label: " Walk" },
+    { id: "transit", label: " Transit" },
+    { id: "driving", label: " Drive" },
+    { id: "bicycling", label: " Cycle" },
   ] as const;
   type Mode = (typeof ALL_MODES)[number]["id"];
   
@@ -118,10 +118,31 @@ export default function Home() {
 
   // ---- render: what the screen looks like, given the state ----
   return (
-    <main style={{ maxWidth: 640, margin: "2rem auto", padding: "0 1rem", fontFamily: "system-ui" }}>
+    <main style={{ maxWidth: 680, margin: "0 auto", padding: "64px 24px" }}>
       <h1>Route Optimiser</h1>
+      <p style={{
+        display: "inline-block",
+        background: "var(--blush)",
+        color: "var(--sienna)",
+        padding: "8px 18px",
+        borderRadius: "var(--r-pill)",
+        fontSize: 15,
+        fontWeight: 500,
+        marginTop: 12,
+      }}>
+        Plan routes across your day, automatically
+      </p>
 
-      <section>
+      <section 
+      style={{
+        background: "var(--mist)",
+        borderRadius: "var(--r-card)",
+        padding: 24,
+        marginTop: 24,
+        display: "flex",
+        flexDirection: "column",
+        gap: 16,
+      }}>
         <h2>Trip</h2>
         <label>
           Start / accommodation:{" "}
@@ -131,7 +152,19 @@ export default function Home() {
               onPlaceChanged={onStartChosen}
             >
               <input value={startPoint} onChange={(e) => setStartPoint(e.target.value)}
-                placeholder="Start typing your hotel / start point…" size={32} />
+                placeholder="Start typing your hotel / start point…" size={32} 
+                style={{
+                  padding: "12px 16px",
+                  borderRadius: "var(--r-input)",
+                  border: "1px solid var(--line)",
+                  background: "var(--paper)",
+                  fontSize: 16,
+                  fontFamily: "inherit",
+                  color: "var(--ink)",
+                  outline: "none",
+                  width: "100%",
+                  boxSizing: "border-box",
+                }}/>
             </Autocomplete>
           ) : (
             <input value={startPoint} onChange={(e) => setStartPoint(e.target.value)}
@@ -139,26 +172,64 @@ export default function Home() {
           )}
         </label>
         <div style={{ marginTop: 8 }}>
-          <label>From: <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} /></label>{" "}
-          <label>To: <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} /></label>
+          <label>From: <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} 
+          style={{
+            padding: "12px 16px",
+            borderRadius: "var(--r-input)",
+            border: "1px solid var(--line)",
+            background: "var(--paper)",
+            fontSize: 16,
+            fontFamily: "inherit",
+            color: "var(--ink)",
+            outline: "none",
+            width: "100%",
+            boxSizing: "border-box",
+          }}/></label>{" "}
+          <label>To: <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} 
+            style={{
+              padding: "12px 16px",
+              borderRadius: "var(--r-input)",
+              border: "1px solid var(--line)",
+              background: "var(--paper)",
+              fontSize: 16,
+              fontFamily: "inherit",
+              color: "var(--ink)",
+              outline: "none",
+              width: "100%",
+              boxSizing: "border-box",
+            }}/></label>
         </div>
         <div style={{ marginTop: 8 }}>
           <span>Travel by: </span>
           {ALL_MODES.map((m) => (
             <button key={m.id} onClick={() => toggleMode(m.id)}
-              style={{
-                marginRight: 6, padding: "4px 10px", borderRadius: 14, cursor: "pointer",
-                border: "1px solid #888",
-                background: modes.includes(m.id) ? "#333" : "white",
-                color: modes.includes(m.id) ? "white" : "#333",
-              }}>
+            style={{
+              marginRight: 6,
+              padding: "8px 14px",
+              borderRadius: "var(--r-pill)",
+              border: modes.includes(m.id) ? "1px solid var(--ink)" : "1px solid var(--line)",
+              background: modes.includes(m.id) ? "var(--ink)" : "var(--paper)",
+              color: modes.includes(m.id) ? "var(--paper)" : "var(--ink)",
+              fontSize: 14,
+              fontWeight: 500,
+              cursor: "pointer",
+            }}>
               {m.label}
             </button>
           ))}
         </div>
       </section>
 
-      <section style={{ marginTop: 24 }}>
+      <section 
+      style={{
+        background: "var(--mist)",
+        borderRadius: "var(--r-card)",
+        padding: 24,
+        marginTop: 24,
+        display: "flex",
+        flexDirection: "column",
+        gap: 16,
+      }}>
         <h2>Places</h2>
         {mapsReady ? (
           <Autocomplete
@@ -173,7 +244,19 @@ export default function Home() {
             onKeyDown={(e) => e.key === "Enter" && addPlace()}
             placeholder="Louvre Museum, Paris" size={28} />
         )}
-        <select value={newPriority} onChange={(e) => setNewPriority(e.target.value as Priority)}>
+        <select value={newPriority} onChange={(e) => setNewPriority(e.target.value as Priority)}
+          style={{
+            padding: "8px 14px",
+            borderRadius: "var(--r-pill)",
+            border: "1px solid var(--line)",
+            background: "var(--paper)",
+            color: "var(--ink)",
+            fontSize: 14,
+            fontWeight: 500,
+            cursor: "pointer",
+            appearance: "none",
+            WebkitAppearance: "none",
+          }}>
           <option value="must">must</option>
           <option value="want">want</option>
           <option value="optional">optional</option>
@@ -191,7 +274,18 @@ export default function Home() {
       </section>
 
       <button onClick={planTrip} disabled={!ready || loading}
-              style={{ marginTop: 16, padding: "8px 20px" }}>
+        style={{
+          marginTop: 24,
+          padding: "12px 24px",
+          borderRadius: "var(--r-pill)",
+          background: "var(--ink)",
+          color: "var(--paper)",
+          border: "none",
+          fontSize: 16,
+          fontWeight: 500,
+          cursor: "pointer",
+          opacity: !ready || loading ? 0.4 : 1,
+        }}>
         {loading ? "Planning…" : "Plan my trip"}
       </button>
 
