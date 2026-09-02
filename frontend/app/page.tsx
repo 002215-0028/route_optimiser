@@ -288,6 +288,17 @@ export default function Home() {
         }}>
         {loading ? "Planning…" : "Plan my trip"}
       </button>
+      {loading && (
+        <div style={{
+          marginTop: 24, padding: 24,
+          background: "var(--mist)", borderRadius: "var(--r-card)",
+          color: "var(--slate)", fontSize: 15,
+          display: "flex", alignItems: "center", gap: 12,
+        }}>
+          <span className="pulse-dot" />
+          Geocoding places, computing routes, building your days…
+        </div>
+      )}
 
       {error && (
         <pre style={{ color: "crimson", whiteSpace: "pre-wrap", marginTop: 16 }}>{error}</pre>

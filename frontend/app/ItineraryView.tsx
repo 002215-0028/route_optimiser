@@ -34,7 +34,15 @@ export default function ItineraryView({ itinerary }: { itinerary: Itinerary }) {
   };
   return (
     <div style={{ marginTop: 24 }}>
-      <p>
+      <p style={{
+        display: "inline-block",
+        background: "var(--blush)",
+        color: "var(--sienna)",
+        padding: "10px 20px",
+        borderRadius: "var(--r-pill)",
+        fontSize: 15,
+        fontWeight: 500,
+      }}>
         <b>{itinerary.summary.num_days} days · {itinerary.summary.total_stops} stops ·{" "}
         {itinerary.summary.total_walk_min} min travel</b>
       </p>
@@ -43,10 +51,12 @@ export default function ItineraryView({ itinerary }: { itinerary: Itinerary }) {
         {itinerary.days.map((d, i) => (
           <button key={d.day} onClick={() => setActiveDay(i)}
             style={{
-              padding: "6px 14px", borderRadius: 16, cursor: "pointer",
-              border: `2px solid ${DAY_COLOURS[i % DAY_COLOURS.length]}`,
-              background: i === activeDay ? DAY_COLOURS[i % DAY_COLOURS.length] : "white",
-              color: i === activeDay ? "white" : "inherit",
+              padding: "8px 16px",
+              borderRadius: "var(--r-pill)",
+              border: i === activeDay ? "1px solid var(--ink)" : "1px solid var(--line)",
+              background: i === activeDay ? "var(--ink)" : "var(--paper)",
+              color: i === activeDay ? "var(--paper)" : "var(--ink)",
+              fontSize: 14, fontWeight: 500, cursor: "pointer",
             }}>
             Day {d.day}
           </button>
@@ -55,33 +65,40 @@ export default function ItineraryView({ itinerary }: { itinerary: Itinerary }) {
 
       <p><i>{day.weekday} {day.date}</i></p>
       <ol>
-        {day.stops.length === 0 && <p>(free day)</p>}
-        {day.stops.map((s) => (
-          <li key={s.name}>
-            <b>{s.arrival}</b> — {s.name} ({s.visit_start}–{s.visit_end})
-            {s.warnings.map((w) => (
-              <span key={w} style={{ color: "crimson" }}> ⚠ {w}</span>
-            ))}
-          </li>
-        ))}
-        {day.stops.map((s, i) => (
-          <li key={s.name}>
-            {day.legs[i] && (
-              <span style={{ color: "#666" }}>
-                {MODE_ICONS[day.legs[i].mode] ?? "🚶"} {day.legs[i].walk_min} min →{" "}
-              </span>
-            )}
-            <b>{s.arrival}</b> — {s.name} ({s.visit_start}–{s.visit_end})
-            {s.warnings.map((w) => (
-              <span key={w} style={{ color: "crimson" }}> ⚠ {w}</span>
-            ))}
-          </li>
-        ))}
+        <div style={{
+          background: "var(--mist)",
+          borderRadius: "var(--r-card)",
+          padding: 24,
+          marginTop: 16,
+        }}>
+          {day.stops.length === 0 && <p>(free day)</p>}
+          {day.stops.map((s) => (
+            <li key={s.name}>
+              <b>{s.arrival}</b> — {s.name} ({s.visit_start}–{s.visit_end})
+              {s.warnings.map((w) => (
+                <span key={w} style={{ color: "crimson" }}> ⚠ {w}</span>
+              ))}
+            </li>
+          ))}
+          {day.stops.map((s, i) => (
+            <li key={s.name}>
+              {day.legs[i] && (
+                <span style={{ color: "#666" }}>
+                  {MODE_ICONS[day.legs[i].mode] ?? "🚶"} {day.legs[i].walk_min} min →{" "}
+                </span>
+              )}
+              <b>{s.arrival}</b> — {s.name} ({s.visit_start}–{s.visit_end})
+              {s.warnings.map((w) => (
+                <span key={w} style={{ color: "crimson" }}> ⚠ {w}</span>
+              ))}
+            </li>
+          ))}
+        </div>
       </ol>
 
       {isLoaded && (
         <GoogleMap
-          mapContainerStyle={{ width: "100%", height: 420, borderRadius: 8 }}
+          mapContainerStyle={{ width: "100%", height: 420, borderRadius: 24 }}
           center={path[0]}
           zoom={13}
         >

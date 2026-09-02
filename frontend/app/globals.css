@@ -94,3 +94,13 @@ h2 { font-size: 26px; letter-spacing: -0.23px; }
   text-transform: uppercase;
   color: var(--slate);
 }
+
+.pulse-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--sienna);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
